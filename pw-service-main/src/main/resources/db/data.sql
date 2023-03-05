@@ -1,0 +1,16 @@
+insert into authors (name) values ('Arthur Conan Doyle');
+insert into authors (name) values ('Plagiarist');
+insert into authors (name) values ('Twain');
+insert into genres (name) values ('Fantasy');
+insert into genres (name) values ('Novel');
+insert into genres (name) values ('Detective');
+insert into genres (name) values ('Travelogue');
+insert into books (title, author_id, genre_id) values ('The Adventure of the Dancing Men', 1, 3);
+insert into books (title, author_id, genre_id) values ('The Adventure of the Dancing Men', 2, 3);
+insert into books (title, author_id, genre_id) values ('Roughing It', 3, 4);
+insert into book_comments (book_id, text) values (1, 'great');
+insert into book_comments (book_id, text) values (1, 'very good');
+insert into book_comments (book_id, text) values (1, 'excellent');
+insert into book_comments (book_id, text) values (1, 'gorgeous');
+insert into book_comments (book_id, text) values (2, 'poor');
+insert into book_comments (book_id, text) values (2, 'very bad');
