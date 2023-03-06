@@ -34,7 +34,7 @@ public class MqListener {
         CreditRequest creditRequest = objectMapper.readValue(message, CreditRequest.class);
         log.trace("request data {}", creditRequest);
 
-        if (Math.random() <= 0.5) {
+        if (Math.random() <= 0.75) {
             creditRequest.setState(CreditRequestState.FINAL_APPROVED);
             creditRequest.setPercentageRate(percentageRateMin + Math.random() * (percentageRateMax - percentageRateMin));
             log.warn("final randomly approved with percentage rate {}", creditRequest.getPercentageRate());

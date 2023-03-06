@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -37,6 +38,7 @@ public class PutRequest {
         creditRequest.setDocNumber(putRequest.getDocNumber());
         creditRequest.setDocDate(putRequest.getDocDate());
         creditRequest.setSum(putRequest.getSum());
+        creditRequest.setCreated(new Date());
         return creditRequest;
     }
 }

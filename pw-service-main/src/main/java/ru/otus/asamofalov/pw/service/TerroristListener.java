@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.asamofalov.pw.Constants;
 import ru.otus.asamofalov.pw.domain.CreditRequest;
 import ru.otus.asamofalov.pw.domain.CreditRequestState;
@@ -25,6 +26,7 @@ public class TerroristListener {
     private final Channel channel;
 
     @RabbitListener(queues = Constants.SERVICE_TERROR_RESPONSE_QUEUE)
+    @Transactional
     public void processMessages(byte[] message) throws IOException {
         log.debug("new request from terrorist check received");
         CreditRequest processed = objectMapper.readValue(message, CreditRequest.class);
@@ -43,9 +45,9 @@ public class TerroristListener {
             return;
         }
 
-        channel.basicPublish("", Constants.SERVICE_FINAL_REQUEST_QUEUE, null, objectMapper.writeValueAsBytes(creditRequest));
         creditRequest.setState(CreditRequestState.SENT_FOR_FINAL);
         creditRequestsRepository.save(creditRequest);
+        channel.basicPublish("", Constants.SERVICE_FINAL_REQUEST_QUEUE, null, objectMapper.writeValueAsBytes(creditRequest));
 
         log.debug("request processed{}", Tools.getTraceDetails(creditRequest));
     }

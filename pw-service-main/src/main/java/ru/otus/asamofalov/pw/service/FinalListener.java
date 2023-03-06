@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.asamofalov.pw.Constants;
 import ru.otus.asamofalov.pw.domain.CreditRequest;
 import ru.otus.asamofalov.pw.domain.CreditRequestState;
@@ -25,6 +26,7 @@ public class FinalListener {
     private final Channel channel;
 
     @RabbitListener(queues = Constants.SERVICE_FINAL_RESPONSE_QUEUE)
+    @Transactional
     public void processMessages(byte[] message) throws IOException {
 
         log.debug("new request from final check received");

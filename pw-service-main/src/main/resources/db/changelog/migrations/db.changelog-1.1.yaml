@@ -51,8 +51,39 @@ databaseChangeLog:
               - column:
                   name: percentage_rate
                   type: double
+              - column:
+                  name: created
+                  type: DATETIME
+              - column:
+                  name: updated
+                  type: DATETIME
             tableName: credit_requests
-#        - addUniqueConstraint:
-#            columnNames: title, author_id
-#            tableName: books
-#            constraintName: const_title_author
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: history_pkey
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  startWith: 1
+                  incrementBy: 1
+              - column:
+                  name: state
+                  type: VARCHAR(30)
+                  constraints:
+                    nullable: false
+                    unique: false
+              - column:
+                  name: updated
+                  type: DATETIME
+              - column:
+                  name: credit_request_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_credit_request_id
+                    references: credit_requests(id)
+            tableName: credit_requests_history

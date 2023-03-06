@@ -2,14 +2,14 @@
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%-4relative %d %-5level [ %t ] [%mdc{X-Forwarded-For}] [%mdc{X-B3-TraceId},%mdc{X-B3-SpanId}] %-55logger{13} | %m %n</pattern>
+            <pattern>%-4relative %d %-5level | %m %n</pattern>
             <charset>utf8</charset>
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/log/pw/service-passport.log</file>
         <encoder>
-            <pattern>%-4relative %d %-5level [ %t ] [%mdc{X-Forwarded-For}] [%mdc{X-B3-TraceId},%mdc{X-B3-SpanId}] %-55logger{13} | %m %n</pattern>
+            <pattern>%-4relative %d %-5level | %m %n</pattern>
             <charset>utf8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">

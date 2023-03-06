@@ -9,7 +9,7 @@ public class PutResponse {
 
     private UUID uuid;
 
-    private String result;
+    private String errors;
 
     private CreditRequestState state;
 
