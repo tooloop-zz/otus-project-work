@@ -21,6 +21,8 @@ public class GetResponse {
         GetResponse getResponse = new GetResponse();
         getResponse.setState(creditRequest.getState());
         getResponse.setUuid(creditRequest.getUuid());
+        getResponse.setName(creditRequest.getName());
+        getResponse.setSum(creditRequest.getSum());
         getResponse.setPercentageRate(Math.floor(creditRequest.getPercentageRate() * 100) / 100);
         return getResponse;
     }
