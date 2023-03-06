@@ -54,8 +54,6 @@ public class CreditRequest {
     private CreditRequestState state;
 
     public void setState(CreditRequestState state) {
-//        if (this.state != null) {
-//        }
         this.state = state;
         this.updated = new Date();
         history.add(new CreditRequestHistoryItem(this.state, this.updated));

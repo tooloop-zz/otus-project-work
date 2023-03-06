@@ -28,11 +28,10 @@ public class MqListener {
         log.debug("new request received");
         CreditRequest creditRequest = objectMapper.readValue(message, CreditRequest.class);
         log.trace("request data {}", creditRequest);
-        if (passportsRepository.existsPassportByDocSeriesAndDocNumber(creditRequest.getDocSeries(), creditRequest.getDocNumber())){
+        if (passportsRepository.existsPassportByDocSeriesAndDocNumber(creditRequest.getDocSeries(), creditRequest.getDocNumber())) {
             creditRequest.setState(CreditRequestState.PASSPORT_CHECKED);
             log.trace("client by passports DB checked");
-        }
-        else{
+        } else {
             creditRequest.setState(CreditRequestState.DECLINED_BY_PASSPORT_CHECK);
             log.warn("client not found in passports DB");
         }

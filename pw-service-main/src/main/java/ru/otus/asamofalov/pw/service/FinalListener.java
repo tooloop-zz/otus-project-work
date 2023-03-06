@@ -33,13 +33,13 @@ public class FinalListener {
         CreditRequest processed = objectMapper.readValue(message, CreditRequest.class);
         log.trace("request data {}", processed);
         Optional<CreditRequest> optionalCreditRequest = creditRequestsRepository.findByUuid(processed.getUuid());
-        if (!optionalCreditRequest.isPresent()){
+        if (!optionalCreditRequest.isPresent()) {
             log.debug("credit request with {} not found, skipped", processed.getUuid());
             return;
         }
 
         CreditRequest creditRequest = optionalCreditRequest.get();
-        if (processed.getState().equals(CreditRequestState.FINAL_APPROVED)){
+        if (processed.getState().equals(CreditRequestState.FINAL_APPROVED)) {
             creditRequest.setPercentageRate(processed.getPercentageRate());
         }
         creditRequest.setState(processed.getState());

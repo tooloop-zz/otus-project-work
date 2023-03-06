@@ -9,5 +9,6 @@ import java.util.UUID;
 
 public interface CreditRequestsRepository extends CrudRepository<CreditRequest, Long> {
     Optional<CreditRequest> findByUuid(UUID uuid);
+
     List<CreditRequest> findAll();
 }

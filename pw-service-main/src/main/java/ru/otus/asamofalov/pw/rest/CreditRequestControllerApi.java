@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.otus.asamofalov.pw.Constants;
 import ru.otus.asamofalov.pw.domain.CreditRequest;
-import ru.otus.asamofalov.pw.domain.CreditRequestHistoryItem;
 import ru.otus.asamofalov.pw.domain.CreditRequestState;
 import ru.otus.asamofalov.pw.domain.GetResponse;
 import ru.otus.asamofalov.pw.domain.PutRequest;
@@ -25,7 +24,6 @@ import ru.otus.asamofalov.pw.repository.CreditRequestsRepository;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,27 +58,20 @@ public class CreditRequestControllerApi {
         creditRequestsRepository.save(creditRequest);
         channel.basicPublish("", Constants.SERVICE_PASSPORT_REQUEST_QUEUE, null, objectMapper.writeValueAsBytes(creditRequest));
 
-//        creditRequestsRepository.save(creditRequest);
-//        creditRequest.getHistory().add(new CreditRequestHistoryItem(creditRequest.getState(), creditRequest.getUpdated()));
-//        creditRequest.setUpdated(new Date());
         log.debug("put request accepted{}", Tools.getTraceDetails(creditRequest));
         return ResponseEntity.ok().body(putResponse);
     }
 
     @GetMapping("/api/requests/{uuid}")
-    public ResponseEntity<?> get(@PathVariable UUID uuid){
+    public ResponseEntity<?> get(@PathVariable UUID uuid) {
 
         log.debug("new get request with uuid: {} received", uuid);
 
         Optional<CreditRequest> creditRequest = creditRequestsRepository.findByUuid(uuid);
 
-        if (creditRequest.isPresent()){
+        if (creditRequest.isPresent()) {
 
             GetResponse getResponse = GetResponse.fromCreditRequest(creditRequest.get());
-//            getResponse.setName(creditRequest.get().getName());
-//            getResponse.setSum(creditRequest.get().getSum());
-//            getResponse.setState(creditRequest.get().getState());
-//            getResponse.setPercentageRate(creditRequest.get().getPercentageRate());
             log.debug("data for uuid {} found{}", uuid, Tools.getTraceDetails(getResponse));
             return ResponseEntity.ok().body(getResponse);
         }
@@ -93,14 +84,14 @@ public class CreditRequestControllerApi {
     }
 
     @GetMapping("/api/restricted/requests")
-    public List<CreditRequestDto> getAll(){
+    public List<CreditRequestDto> getAll() {
         return creditRequestsRepository.findAll().stream().map(CreditRequestDto::fromDomainObject).collect(Collectors.toList());
     }
 
     @GetMapping("/api/restricted/requests/{id}")
-    public CreditRequestDto getOne(@PathVariable Long id){
-        Optional<CreditRequest> optionalCreditRequest= creditRequestsRepository.findById(id);
-        if (!optionalCreditRequest.isPresent()){
+    public CreditRequestDto getOne(@PathVariable Long id) {
+        Optional<CreditRequest> optionalCreditRequest = creditRequestsRepository.findById(id);
+        if (!optionalCreditRequest.isPresent()) {
             return null;
         }
         return CreditRequestDto.fromDomainObject(optionalCreditRequest.get());

@@ -32,7 +32,7 @@ public class PassportListener {
         CreditRequest processed = objectMapper.readValue(message, CreditRequest.class);
         log.trace("request data {}", processed);
         Optional<CreditRequest> optionalCreditRequest = creditRequestsRepository.findByUuid(processed.getUuid());
-        if (!optionalCreditRequest.isPresent()){
+        if (!optionalCreditRequest.isPresent()) {
             log.debug("credit request with {} not found, skipped", processed.getUuid());
             return;
         }
@@ -40,7 +40,7 @@ public class PassportListener {
         creditRequest.setState(processed.getState());
         creditRequestsRepository.save(creditRequest);
 
-        if (creditRequest.getState().equals(CreditRequestState.DECLINED_BY_PASSPORT_CHECK)){
+        if (creditRequest.getState().equals(CreditRequestState.DECLINED_BY_PASSPORT_CHECK)) {
             log.trace("request {} processing interrupted", creditRequest.getUuid());
             return;
         }

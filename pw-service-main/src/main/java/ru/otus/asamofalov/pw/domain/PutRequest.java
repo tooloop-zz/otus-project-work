@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -30,7 +29,7 @@ public class PutRequest {
     @Min(1)
     private double Sum;
 
-    public static CreditRequest toCreditRequest(PutRequest putRequest){
+    public static CreditRequest toCreditRequest(PutRequest putRequest) {
         CreditRequest creditRequest = new CreditRequest();
         creditRequest.setUuid(UUID.randomUUID());
         creditRequest.setName(putRequest.getName());

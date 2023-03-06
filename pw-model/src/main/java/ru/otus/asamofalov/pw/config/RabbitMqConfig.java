@@ -14,20 +14,6 @@ import java.util.concurrent.TimeoutException;
 @Configuration
 public class RabbitMqConfig {
 
-    private static final String MAIN_EXCHANGE_NAME = "main-exchange";
-
-//    @Bean
-//    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-//        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-//        rabbitTemplate.setExchange(MAIN_EXCHANGE_NAME);
-//        return rabbitTemplate;
-//    }
-//
-//    @Bean
-//    public TopicExchange topicExchange(){
-//        return new TopicExchange(MAIN_EXCHANGE_NAME);
-//    }
-
     @Bean
     public ConnectionFactory clientConnectionFactory() {
         return new ConnectionFactory();
